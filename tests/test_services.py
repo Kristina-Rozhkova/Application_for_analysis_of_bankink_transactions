@@ -9,7 +9,7 @@ from src.services import (check_cashback, investment_bank, searching_for_transac
 
 def test_check_cashback(data_list):
     """Тестирование вывода кэшбэка за выбранный период"""
-    result = check_cashback(data_list, '1', '2018')
+    result = check_cashback(data_list, "1", "2018")
     data = {"Супермаркеты": 35}
     assert result == json.dumps(data, indent=4, ensure_ascii=False)
 
@@ -17,7 +17,7 @@ def test_check_cashback(data_list):
 def test_check_cashback_wrong_data(data_list):
     """Тестирование работы функции, когда указанной даты в данных нет"""
     with pytest.raises(ValueError) as ex:
-        check_cashback(data_list, '12', '2018')
+        check_cashback(data_list, "12", "2018")
     assert str(ex.value) == "Указанной даты в данных не существует"
 
 
@@ -26,7 +26,7 @@ def test_check_cashback_clear_data():
     clear_data = []
 
     with pytest.raises(ValueError) as ex:
-        check_cashback(clear_data, '1', '2018')
+        check_cashback(clear_data, "1", "2018")
     assert str(ex.value) == "Список данных пуст"
 
 

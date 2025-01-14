@@ -96,7 +96,22 @@ poetry install
         2. Сергей З.
         3. Артем П.
 
-3. **main.py:**
+3. **reports.py**
+
+   - `spending_by_category` - *Траты по категориям за последние 3 месяца*
+        
+        Функция принимает на вход:
+        - датафрейм с транзакциями,
+        - название категории,
+        - опциональную дату.
+        
+        Если дата не передана, то берется текущая дата.
+
+        Функция возвращает траты по заданной категории за последние три месяца (от переданной даты).
+
+   - `report` - *Декоратор для функций-отчетов, который записывает в файл результат*
+
+4. **main.py:**
 
     - `main` - *Основная функция для взаимодействия с пользователем*
 
@@ -108,6 +123,7 @@ poetry install
 -[conftest.py](tests/conftest.py)
 -[test_utils.py](tests/test_utils.py)
 -[test_services.py](tests/test_services.py)
+-[test_reports.py](tests/test_reports.py)
 
 ---
 
@@ -147,6 +163,13 @@ poetry install
     - `test_searching_for_transactions_to_physical_person_error` - *Тестирование работы функции поиска переводов физ.лицам, когда таких данных не нашлось*
     - `test_searching_for_transactions_to_physical_person_clear_list` - *Тестирование работы функции поиска переводов физ.лицам, когда на вход поступают пустые данные*
 
+4. **test_reports.py**
+
+    - `test_spending_by_category_success_with_date` - *Тестирование успешной работы трат по категории с переданной датой*
+    - `test_spending_by_category_success_without_date` - *Тестирование успешной работы трат по категории без переданной даты*
+    - `test_spending_by_category_date_error` - *Тестирование работы трат по категориям с неправильно переданным форматом даты*
+    - `test_spending_by_category_category_error` - *Тестирование работы трат по категориям с категорией, не содержащейся в данных*
+    - `test_report` - *Тестирование декоратора report*
 
 ---
 

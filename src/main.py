@@ -1,3 +1,8 @@
+import json
+from datetime import datetime
+import pandas as pd
+
+from src.reports import spending_by_category
 from src.services import (check_cashback, investment_bank, searching_for_transactions_to_physical_person,
                           searching_information, searching_with_phone_number)
 from src.utils import excel_reading
@@ -21,7 +26,8 @@ if __name__ == "__main__":
                         "2.Округление Ваших трат до порога 10, 50, 100 руб.\n"
                         "3.Фильтрация данных по запросу.\n"
                         "4.Фильтрация данных по телефонным номерам.\n"
-                        "5.Фильтрация данных по переводам физическим лицам."
+                        "5.Фильтрация данных по переводам физическим лицам.\n"
+                        "6.Сформировать отчет по тратам по категориям за последние 3 месяца."
                     )
                     user_choice = input()
 
@@ -81,6 +87,23 @@ if __name__ == "__main__":
                     elif user_choice == "5":
                         print("Ответ по запросу:")
                         return searching_for_transactions_to_physical_person(read_file)
+
+                    elif user_choice == "6":
+                        print("Введите категорию трат, по которой хотите получить отчет.")
+                        user_category = input().title()
+
+                        print("Введите дату, от которой будут отсчитываться последние 3 месяца")
+                        user_date = input("Дату введите в формате ДД.ММ.ГГГГ ")
+
+                        result = spending_by_category(pd.DataFrame(read_file), user_category, user_date)
+                        # filename = f"report_{datetime.now().strftime('%d%m%Y_%H%M%S')}.json"
+                        #
+                        # with open(filename, "r", encoding="utf-8") as file:  # type: ignore
+                        #     json_data = json.load(file)
+                        #     print("Результат отчета:")
+                        #     print(json.dumps(json_data, ensure_ascii=False, indent=4))
+                        print("Отчет сформирован.")
+                        return result
 
                     else:
                         print(
